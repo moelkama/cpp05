@@ -1,13 +1,34 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
+Bureaucrat::Bureaucrat() : name("Name not set")//grade
+{
+    // std::cout<<"Bureaucrat Default Constractor Called"<<std::endl;
+}
+
 Bureaucrat::Bureaucrat(std::string name, int grade):name(name)
 {
-    if (grade > 150)
-        throw   std::out_of_range("Bureaucrat::GradeTooLowException");
-    else if (grade < 1)
-        throw   std::out_of_range("Bureaucrat::GradeTooHighException");
     this->grade = grade;
+    if (grade > 150)
+        throw   GradeTooLowException();
+    else if (grade < 1)
+        throw   GradeTooHighException();
+}
+
+Bureaucrat::Bureaucrat(const Bureaucrat& other):name(other.name)
+{
+    *this = other;
+}
+
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
+{
+    this->grade = other.grade;
+    return (*this);
+}
+
+Bureaucrat::~Bureaucrat()
+{
+    // std::cout<<"Bureaucrat Destructor Called"<<std::endl;
 }
 
 std::string     Bureaucrat::getName() const
@@ -23,14 +44,14 @@ int Bureaucrat::getGrade() const
 void    Bureaucrat::increment_grade()
 {
     if (this->grade <= 1)
-        throw   std::out_of_range("Bureaucrat::GradeTooHighException");
+        throw   GradeTooHighException();
     this->grade--;
 }
 
 void    Bureaucrat::decrement_grade()
 {
     if (this->grade >= 150)
-        throw   std::out_of_range("Bureaucrat::GradeTooLowException");
+        throw   GradeTooLowException();
     this->grade++;
 }
 
@@ -40,10 +61,25 @@ std::ostream&    operator<<(std::ostream& out, const Bureaucrat& bur)
     return (out);
 }
 
+const char* Bureaucrat::GradeTooHighException::what()
+{
+    return ("Bureaucrat::GradeTooHighException");
+}
+
+const char* Bureaucrat::GradeTooLowException::what()
+{
+    return ("Bureaucrat::GradeTooLowException");
+}
+
 void    Bureaucrat::signForm(Form form) const
 {
-    if (this->grade <= form.getGradeSign())
-        std::cout<<this->name<<" signed "<<form.getName();
-    else
-        std::cout<<this->name<<" couldn't sign "<<form.getName()<<" because permission denied"<<std::endl;
+    try
+    {
+        form.beSigned(*this);
+        std::cout<<this->name<<" signed "<<form.getName()<<std::endl;
+    }
+    catch(std::exception& e)
+    {
+        std::cout<<this->name<<" couldn't sign "<<form.getName()<<" because "<<e.what()<<std::endl;
+    }
 }

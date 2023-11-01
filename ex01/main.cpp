@@ -1,13 +1,15 @@
 #include "Form.hpp"
+#include "Form.hpp"
+#include "Bureaucrat.hpp"
 #include "Bureaucrat.hpp"
 
 int main(void)
 {
     try
     {
-        Bureaucrat  bur("mkatfi", 40);
-        Form    var("istimara", 6, 3);
-        var.beSigned(bur);
+        Bureaucrat  bur("mkatfi", 100);
+        Form        form("istimara", 1, 21);
+        bur.signForm(form);
     }
     catch (std::exception& e)
     {

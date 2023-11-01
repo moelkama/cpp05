@@ -1,12 +1,33 @@
 #include "Bureaucrat.hpp"
 
+Bureaucrat::Bureaucrat() : name("Name not set")
+{
+    // std::cout<<"Bureaucrat Default Constractor Called"<<std::endl;
+}
+
 Bureaucrat::Bureaucrat(std::string name, int grade):name(name)
 {
-    if (grade > 150)
-        throw   std::out_of_range("Bureaucrat::GradeTooLowException");
-    else if (grade < 1)
-        throw   std::out_of_range("Bureaucrat::GradeTooHighException");
     this->grade = grade;
+    if (grade > 150)
+        throw   GradeTooLowException();
+    else if (grade < 1)
+        throw   GradeTooHighException();
+}
+
+Bureaucrat::Bureaucrat(const Bureaucrat& other):name(other.name)
+{
+    *this = other;
+}
+
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
+{
+    this->grade = other.grade;
+    return (*this);
+}
+
+Bureaucrat::~Bureaucrat()
+{
+    // std::cout<<"Bureaucrat Destructor Called"<<std::endl;
 }
 
 std::string     Bureaucrat::getName() const
@@ -22,14 +43,14 @@ int Bureaucrat::getGrade() const
 void    Bureaucrat::increment_grade()
 {
     if (this->grade <= 1)
-        throw   std::out_of_range("Bureaucrat::GradeTooHighException");
+        throw   GradeTooHighException();
     this->grade--;
 }
 
 void    Bureaucrat::decrement_grade()
 {
     if (this->grade >= 150)
-        throw   std::out_of_range("Bureaucrat::GradeTooLowException");
+        throw   GradeTooLowException();
     this->grade++;
 }
 
@@ -37,4 +58,14 @@ std::ostream&    operator<<(std::ostream& out, const Bureaucrat& bur)
 {
     out<<bur.getName()<<", bureaucrat grade "<<bur.getGrade();
     return (out);
+}
+
+const char* Bureaucrat::GradeTooHighException::what() const throw()
+{
+    return ("Bureaucrat::GradeTooHighException");
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw()
+{
+    return ("Bureaucrat::GradeTooLowException");
 }
