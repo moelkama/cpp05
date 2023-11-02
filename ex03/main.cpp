@@ -6,7 +6,7 @@ int main(void)
     {
         Bureaucrat  bur("mkatfi", 2);
         Intern      intern;
-        AForm *form = intern.makeForm("PresidentialPardonForm", "ayub");
+        AForm *form = intern.makeForm("RobotomyRequestForm", "ayub");
 
         bur.signForm(*form);
         bur.executeForm(*form);
@@ -15,5 +15,6 @@ int main(void)
     {
         std::cout<<e.what()<<std::endl;
     }
+    while (1);
    return 0;
 }

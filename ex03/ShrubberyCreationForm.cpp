@@ -33,26 +33,26 @@ void    ShrubberyCreationForm::execute(Bureaucrat const & executor) const
     if (this->getSign() && executor.getGrade() <= this->getGradeExecute())
     {
         std::ofstream   out((target + "_shrubbery").c_str() , std::ofstream::out);
-        out<<"          8              8              75     77\n";
-        out<<"            9           9                875  57\n";
-        out<<"             7         6                   76565     89\n";
-        out<<"    98        56     56            6        565    96\n";
-        out<<"      6       656  556        9     56    656    950\n";
-        out<<"       56       5656      9  6       56  656   9560 \n";
-        out<<"        656      56        656        5 656  9560\n";
-        out<<"         1568     656     560         165568560\n";
-        out<<"          17658    6558 546        56 645650\n";
-        out<<"             17568  76bd56          564560\n";
-        out<<"               14578  7658         644560\n";
-        out<<"                 1458  16458      64456\n";
-        out<<"                   14558 1455    64456\n";
-        out<<"                     6458 7455  54456\n";
-        out<<"                       54bd555bd5576\n";
-        out<<"                         455555766\n";
-        out<<"                         544555776\n";
-        out<<"                        44444566988"<<std::endl;
+        out<<"          @              @              &#     &\n";
+        out<<"            %           %                @&#  #&\n";
+        out<<"             &         ^                   &^#^#     @%\n";
+        out<<"    %@        #^     #^            ^        #^#    %^\n";
+        out<<"      ^       ^#^  #^        %     #^    ^#^    %#*\n";
+        out<<"       #^       #^#^      %  ^       #^  ^#^   %#^* \n";
+        out<<"        ^#^      #^        ^#^        # ^#^  %#^*\n";
+        out<<"         *#^@     ^#^     #^*         *^#^@#^*\n";
+        out<<"          *&^#@    ^#@ #$^        #^ ^$#^#*\n";
+        out<<"             *&#^@  &^bd#^          #^$#^*\n";
+        out<<"               *$#&@  &^#@         ^$$#^*\n";
+        out<<"                 *$#@  *^$#@      ^$$#^\n";
+        out<<"                   *$#@ *$#    ^$$#^\n";
+        out<<"                     ^$#@ &$#  #$$#^\n";
+        out<<"                       #$bd#bd#&^\n";
+        out<<"                         $#&^^\n";
+        out<<"                         #$$#&^\n";
+        out<<"                        $$$$$#^^%@@"<<std::endl;
         out.close();
     }
     else
-        throw   std::out_of_range("ShrubberyCreationForm::execute::Grade is out of range");
+        throw   GradeTooLowException();
 }

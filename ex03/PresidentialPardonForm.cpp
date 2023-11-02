@@ -33,5 +33,5 @@ void    PresidentialPardonForm::execute(Bureaucrat const & executor) const
     if (this->getSign() && executor.getGrade() <= this->getGradeExecute())
         std::cout << target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
     else
-        throw std::out_of_range("PresidentialPardonForm::execute : Grade is out of range");
+        throw GradeTooLowException();
 }

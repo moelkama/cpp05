@@ -11,9 +11,9 @@ AForm::AForm(std::string name, int grade_sign, int grade_execute):name(name), gr
 {
     this->sign = 0;
     if (this->grade_execute < 1 || this->grade_sign < 1)
-        throw   std::out_of_range("AForm::GradeTooHighException");
+        throw   GradeTooHighException();
     if (this->grade_execute > 150 || this->grade_sign > 150)
-        throw   std::out_of_range("AForm::GradeTooLowException");
+        throw   GradeTooLowException();
 }
 
 AForm::AForm(const AForm& other): name(other.name), grade_sign(other.grade_sign), grade_execute(other.grade_execute)
